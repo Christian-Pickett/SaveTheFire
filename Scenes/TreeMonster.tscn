@@ -1,11 +1,13 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/TreeMonster.gd" type="Script" id=1]
 [ext_resource path="res://GFX/IMG_0596.PNG" type="Texture" id=2]
 [ext_resource path="res://GFX/IMG_0597.PNG" type="Texture" id=3]
-[ext_resource path="res://GFX/IMG_0598.PNG" type="Texture" id=4]
-[ext_resource path="res://GFX/IMG_0599.PNG" type="Texture" id=5]
-[ext_resource path="res://SFX/TreeMonster.wav" type="AudioStream" id=6]
+[ext_resource path="res://GFX/death11.PNG" type="Texture" id=4]
+[ext_resource path="res://GFX/death22.PNG" type="Texture" id=5]
+[ext_resource path="res://GFX/IMG_0598.PNG" type="Texture" id=6]
+[ext_resource path="res://GFX/IMG_0599.PNG" type="Texture" id=7]
+[ext_resource path="res://SFX/TreeMonster.wav" type="AudioStream" id=8]
 
 [sub_resource type="CapsuleShape2D" id=1]
 
@@ -23,11 +25,16 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 4 ), ExtResource( 5 ) ],
 "loop": true,
+"name": "Death",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 7 ) ],
+"loop": true,
 "name": "noFire",
 "speed": 5.0
 } ]
 
-[node name="TreeMonster" type="KinematicBody2D"]
+[node name="TreeMonster" type="KinematicBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 1
@@ -43,7 +50,7 @@ shape = SubResource( 1 )
 [node name="Timer" type="Timer" parent="." index="1"]
 
 process_mode = 1
-wait_time = 1.0
+wait_time = 3.0
 one_shot = true
 autostart = false
 
@@ -52,11 +59,12 @@ autostart = false
 scale = Vector2( 0.4, 0.4 )
 frames = SubResource( 2 )
 animation = "noFire"
+playing = true
 _sections_unfolded = [ "Transform" ]
 
 [node name="Screaming" type="AudioStreamPlayer2D" parent="." index="3"]
 
-stream = ExtResource( 6 )
+stream = ExtResource( 8 )
 volume_db = 0.0
 pitch_scale = 1.0
 autoplay = false

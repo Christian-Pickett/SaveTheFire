@@ -15,7 +15,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="StartScreen" type="Control" index="0"]
+[node name="StartScreen" type="Control"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -81,6 +81,7 @@ editor_draw_drag_margin = false
 position = Vector2( 516.359, 229.545 )
 frames = SubResource( 1 )
 animation = "default"
+frame = 2
 playing = true
 
 [node name="Control" type="Control" parent="." index="3"]

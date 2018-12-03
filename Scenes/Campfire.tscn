@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Campfire.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Campfire.gd" type="Script" id=1]
 [ext_resource path="res://GFX/radial.png" type="Texture" id=2]
 [ext_resource path="res://GFX/IMG_0607.PNG" type="Texture" id=3]
 [ext_resource path="res://GFX/IMG_0608.PNG" type="Texture" id=4]
@@ -22,7 +22,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="Campfire" type="Area2D" index="0"]
+[node name="Campfire" type="Area2D"]
 
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -73,7 +73,7 @@ autostart = false
 
 frames = SubResource( 2 )
 animation = "Crackle"
-frame = 2
+frame = 1
 playing = true
 
 [node name="Stoke" type="AudioStreamPlayer2D" parent="." index="4"]
