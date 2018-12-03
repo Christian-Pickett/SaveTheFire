@@ -1,0 +1,113 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
+[ext_resource path="res://GFX/IMG_0593.PNG" type="Texture" id=2]
+[ext_resource path="res://GFX/New_Stand.PNG" type="Texture" id=3]
+[ext_resource path="res://GFX/new_walk2.PNG" type="Texture" id=4]
+[ext_resource path="res://GFX/new_walk1.PNG" type="Texture" id=5]
+
+[sub_resource type="CapsuleShape2D" id=1]
+
+custom_solver_bias = 0.0
+radius = 21.5097
+height = 20.0
+
+[sub_resource type="CapsuleShape2D" id=2]
+
+custom_solver_bias = 0.0
+radius = 11.3445
+height = 20.0
+
+[sub_resource type="SpriteFrames" id=3]
+
+animations = [ {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "Walk",
+"speed": 10.0
+} ]
+
+[node name="Player" type="KinematicBody2D"]
+
+scale = Vector2( 1.8, 1.8 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Deadzone" type="Area2D" parent="." index="0"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Deadzone" index="0"]
+
+position = Vector2( -3.12749, -0.215689 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+
+position = Vector2( -3.12749, -0.215689 )
+shape = SubResource( 2 )
+
+[node name="Light2D" type="Light2D" parent="." index="2"]
+
+visible = false
+scale = Vector2( 0.1, 0.1 )
+enabled = true
+editor_only = false
+texture = ExtResource( 2 )
+offset = Vector2( 0, 0 )
+texture_scale = 1.0
+color = Color( 1, 1, 1, 1 )
+energy = 1.0
+mode = 0
+range_height = 0.0
+range_z_min = -1024
+range_z_max = 1024
+range_layer_min = 0
+range_layer_max = 0
+range_item_cull_mask = 1
+shadow_enabled = false
+shadow_color = Color( 0, 0, 0, 0 )
+shadow_buffer_size = 2048
+shadow_gradient_length = 0.0
+shadow_filter = 0
+shadow_filter_smooth = 0.0
+shadow_item_cull_mask = 1
+
+[node name="Timer" type="Timer" parent="." index="3"]
+
+process_mode = 1
+wait_time = 3.0
+one_shot = true
+autostart = false
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="." index="4"]
+
+position = Vector2( 7.62939e-06, -0.754911 )
+scale = Vector2( 0.1, 0.1 )
+frames = SubResource( 3 )
+animation = "Walk"
+frame = 1
+playing = true
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[connection signal="body_entered" from="Deadzone" to="." method="_on_Deadzone_body_entered"]
+
+

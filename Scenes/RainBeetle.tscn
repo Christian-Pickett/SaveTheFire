@@ -1,0 +1,76 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Scripts/RainBeetle.gd" type="Script" id=1]
+[ext_resource path="res://GFX/IMG_0602.PNG" type="Texture" id=2]
+[ext_resource path="res://GFX/IMG_0603.PNG" type="Texture" id=3]
+[ext_resource path="res://GFX/IMG_0600.PNG" type="Texture" id=4]
+[ext_resource path="res://GFX/IMG_0601.PNG" type="Texture" id=5]
+[ext_resource path="res://SFX/fartNoise.wav" type="AudioStream" id=6]
+
+[sub_resource type="CircleShape2D" id=1]
+
+custom_solver_bias = 0.0
+radius = 71.0358
+
+[sub_resource type="SpriteFrames" id=2]
+
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "Fly",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": false,
+"name": "Die",
+"speed": 2.0
+} ]
+
+[node name="RainBee" type="Area2D"]
+
+scale = Vector2( 0.5, 0.5 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+script = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
+
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="." index="1"]
+
+frames = SubResource( 2 )
+animation = "Die"
+frame = 1
+playing = true
+_sections_unfolded = [ "Transform" ]
+
+[node name="Timer" type="Timer" parent="." index="2"]
+
+process_mode = 1
+wait_time = 0.8
+one_shot = true
+autostart = false
+
+[node name="DeathFart" type="AudioStreamPlayer2D" parent="." index="3"]
+
+stream = ExtResource( 6 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+max_distance = 2000.0
+attenuation = 1.0
+bus = "Master"
+area_mask = 1
+
+[connection signal="body_entered" from="." to="." method="_on_RainBee_body_entered"]
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+
+
